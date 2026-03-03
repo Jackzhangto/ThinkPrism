@@ -1,0 +1,21 @@
+{
+    "$schema": "http://json-schema.org",
+    "title": "ThinkPrism Mode Schema",
+    "type": "object",
+    "patternProperties": {
+      "^[a-z0-9-]+$": { 
+        "type": "object",
+        "required": ["id", "level", "title", "template"],
+        "properties": {
+          "id": { "type": "string", "description": "全局唯一ID，小写字母与连字符" },
+          "level": { "enum": ["L1", "L2", "L3", "persistent"], "description": "指令层级" },
+          "title": { "type": "string", "maxLength": 30 },
+          "emoji": { "type": "string" },
+          "template": { "type": "string", "description": "含 [内容] 占位符的指令文本" },
+          "tags": { "type": "array", "items": { "type": "string" } },
+          "trigger": { "type": "string", "description": "斜杠命令触发词" }
+        }
+      }
+    }
+  }
+  

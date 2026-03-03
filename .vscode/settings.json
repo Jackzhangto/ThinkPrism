@@ -1,0 +1,19 @@
+{
+  // 终端配置：启动时自动执行初始化脚本（仅激活 venv + UTF-8）
+  "terminal.integrated.defaultProfile.windows": "PowerShell",
+  "terminal.integrated.profiles.windows": {
+    "PowerShell": {
+      "source": "PowerShell",
+      "args": [
+        "-NoExit"
+       
+      ]
+    }
+  },
+  // 终端启动目录
+  "terminal.integrated.cwd": "${workspaceFolder}",
+  // 终端环境变量：Python 使用 UTF-8，减少中文编码问题
+  "terminal.integrated.env.windows": {
+    "PYTHONUTF8": "1"
+  }
+}
