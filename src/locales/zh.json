@@ -1,0 +1,26 @@
+{
+  "app": {
+    "name": "ThinkPrism",
+    "description": "您的 AI 提示工程助手"
+  },
+  "modes": {
+    "categories": {
+      "L1_Micro": "极速(L1)",
+      "L2_Combo": "剧本(L2)",
+      "L3_Deep": "百科(L3)"
+    },
+    "summarize": {
+      "name": "总结",
+      "description": "生成所选文本的简明摘要。"
+    },
+    "expand": {
+      "name": "扩展",
+      "description": "用更多细节扩展所选文本。"
+    }
+  },
+  "ui": {
+    "search_placeholder": "搜索模式...",
+    "settings": "设置",
+    "feedback": "反馈"
+  }
+}

@@ -1,0 +1,26 @@
+{
+  "app": {
+    "name": "ThinkPrism",
+    "description": "Your AI Prompt Engineering Assistant"
+  },
+  "modes": {
+    "categories": {
+      "L1_Micro": "Micro(L1)",
+      "L2_Combo": "Combo(L2)",
+      "L3_Deep": "Deep(L3)"
+    },
+    "summarize": {
+      "name": "Summarize",
+      "description": "Generate a concise summary of the selected text."
+    },
+    "expand": {
+      "name": "Expand",
+      "description": "Expand the selected text with more details."
+    }
+  },
+  "ui": {
+    "search_placeholder": "Search modes...",
+    "settings": "Settings",
+    "feedback": "Feedback"
+  }
+}

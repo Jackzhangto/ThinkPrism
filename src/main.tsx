@@ -1,11 +1,13 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
+import App from './App'
 import './index.css'
 
-ReactDOM.createRoot(document.getElementById('root')!).render(
+// Initialize the app
+const root = ReactDOM.createRoot(document.getElementById('root')!)
+
+root.render(
   <React.StrictMode>
-    <div className="p-4">
-      <h1 className="text-2xl font-bold">ThinkPrism Initialized</h1>
-    </div>
-  </React.StrictMode>,
+    <App />
+  </React.StrictMode>
 )

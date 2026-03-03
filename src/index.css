@@ -1,3 +1,61 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss";
+@config "../tailwind.config.js";
+
+@layer base {
+  :root {
+    /* Light Mode */
+    --bg-page: 255 255 255;
+    --bg-panel: 241 245 249; /* Slate-100 */
+    --bg-hover: 226 232 240; /* Slate-200 */
+    --bg-active: 203 213 225; /* Slate-300 */
+    
+    --text-primary: 15 23 42; /* Slate-900 */
+    --text-secondary: 71 85 105; /* Slate-600 */
+    --text-hint: 100 116 139; /* Slate-500 */
+    --text-inverse: 248 250 252; /* Slate-50 */
+
+    --brand-primary: 59 130 246; /* Blue-500 */
+    --brand-hover: 37 99 235; /* Blue-600 */
+    --brand-active: 29 78 216; /* Blue-700 */
+
+    --status-success: 34 197 94; /* Green-500 */
+    --status-warning: 234 179 8; /* Yellow-500 */
+    --status-error: 239 68 68; /* Red-500 */
+
+    --border-default: 226 232 240; /* Slate-200 */
+    --border-light: 241 245 249; /* Slate-100 */
+  }
+
+  .dark {
+    /* Dark Mode */
+    --bg-page: 15 23 42; /* Slate-900 */
+    --bg-panel: 30 41 59; /* Slate-800 */
+    --bg-hover: 51 65 85; /* Slate-700 */
+    --bg-active: 71 85 105; /* Slate-600 */
+
+    --text-primary: 248 250 252; /* Slate-50 */
+    --text-secondary: 148 163 184; /* Slate-400 */
+    --text-hint: 100 116 139; /* Slate-500 */
+    --text-inverse: 15 23 42; /* Slate-900 */
+
+    --brand-primary: 59 130 246; /* Blue-500 */
+    --brand-hover: 37 99 235; /* Blue-600 */
+    --brand-active: 29 78 216; /* Blue-700 */
+
+    --status-success: 34 197 94; /* Green-500 */
+    --status-warning: 234 179 8; /* Yellow-500 */
+    --status-error: 239 68 68; /* Red-500 */
+
+    --border-default: 51 65 85; /* Slate-700 */
+    --border-light: 71 85 105; /* Slate-600 */
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-bg-page text-text-primary;
+  }
+}

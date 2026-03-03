@@ -1,9 +1,19 @@
 {
   "manifest_version": 3,
   "name": "ThinkPrism",
-  "version": "1.0.0",
+  "version": "1.0.3",
+  "description": "激发 AI 深度思考的棱镜",
   "action": {
     "default_popup": "index.html"
+  },
+  "commands": {
+    "_execute_action": {
+      "suggested_key": {
+        "default": "Alt+P",
+        "mac": "Alt+P"
+      },
+      "description": "打开 ThinkPrism"
+    }
   },
   "permissions": [
     "storage",
@@ -12,5 +22,16 @@
   ],
   "host_permissions": [
     "<all_urls>"
-  ]
+  ],
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "js": ["src/content/index.ts"],
+      "run_at": "document_end"
+    }
+  ],
+  "options_ui": {
+    "page": "options.html",
+    "open_in_tab": true
+  }
 }

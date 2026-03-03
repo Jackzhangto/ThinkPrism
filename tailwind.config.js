@@ -1,10 +1,9 @@
-import type { Config } from 'tailwindcss';
-
 export default {
   content: [
     "./index.html",
     "./src/**/*.{js,ts,jsx,tsx}",
   ],
+  darkMode: 'class', // Enable class-based dark mode
   theme: {
     extend: {
       spacing: {
@@ -20,30 +19,31 @@ export default {
       },
       colors: {
         bg: {
-          page: '#0F172A',   // Slate-900
-          panel: '#1E293B',  // Slate-800
-          hover: '#334155',  // Slate-700
-          active: '#475569', // Slate-600
+          page: 'rgb(var(--bg-page) / <alpha-value>)',
+          panel: 'rgb(var(--bg-panel) / <alpha-value>)',
+          hover: 'rgb(var(--bg-hover) / <alpha-value>)',
+          active: 'rgb(var(--bg-active) / <alpha-value>)',
         },
         text: {
-          primary: '#F8FAFC',   // Slate-50
-          secondary: '#94A3B8', // Slate-400
-          hint: '#64748B',      // Slate-500
-          inverse: '#0F172A',   // Slate-900
+          primary: 'rgb(var(--text-primary) / <alpha-value>)',
+          secondary: 'rgb(var(--text-secondary) / <alpha-value>)',
+          hint: 'rgb(var(--text-hint) / <alpha-value>)',
+          inverse: 'rgb(var(--text-inverse) / <alpha-value>)',
         },
         brand: {
-          primary: '#3B82F6',   // Blue-500
-          hover: '#2563EB',     // Blue-600
-          active: '#1D4ED8',    // Blue-700
+          primary: 'rgb(var(--brand-primary) / <alpha-value>)',
+          hover: 'rgb(var(--brand-hover) / <alpha-value>)',
+          active: 'rgb(var(--brand-active) / <alpha-value>)',
         },
         status: {
-          success: '#22C55E',   // Green-500
-          warning: '#EAB308',   // Yellow-500
-          error: '#EF4444',     // Red-500
+          success: 'rgb(var(--status-success) / <alpha-value>)',
+          warning: 'rgb(var(--status-warning) / <alpha-value>)',
+          error: 'rgb(var(--status-error) / <alpha-value>)',
         },
         border: {
-          DEFAULT: '#334155',   // Slate-700
-          light: '#475569',     // Slate-600
+          DEFAULT: 'rgb(var(--border-default) / <alpha-value>)',
+          default: 'rgb(var(--border-default) / <alpha-value>)',
+          light: 'rgb(var(--border-light) / <alpha-value>)',
         }
       },
       borderRadius: {
@@ -66,4 +66,4 @@ export default {
     },
   },
   plugins: [],
-} satisfies Config;
+};
