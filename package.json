@@ -16,9 +16,9 @@
     "package": "node scripts/package.js",
     "release": "npm run build && npm run package"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
+  "keywords": ["chrome-extension", "ai", "prompt", "thinking-mode", "thinkprism"],
+  "author": "ThinkPrism Contributors",
+  "license": "MIT",
   "dependencies": {
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
