@@ -10,6 +10,7 @@ import { Tabs, TabsList, TabsTrigger } from '../ui/tabs';
 import { DebugLogger } from '../../core/DebugLogger';
 import { ContentBridge } from '../../core/ContentBridge';
 import { InstructionBuilder } from '../../core/InstructionBuilder';
+import { i18n } from '../../core/i18n';
 
 /**
  * 模式列表组件
@@ -52,7 +53,7 @@ export function ModeList() {
       }
 
       if (!promptTemplate) {
-        showToast('该模式未定义 Prompt', 'error');
+        showToast(i18n.t('toast.modeNoPrompt'), 'error');
         return;
       }
 
@@ -76,31 +77,40 @@ export function ModeList() {
         }
         
         if (success) {
-          showToast(`已应用模式: ${mode.name}`, 'success');
+          showToast(i18n.t('toast.modeApplied', { name: mode.name }), 'success');
         } else {
           // Fallback: Copy to clipboard if injection fails (already copied above)
-          showToast('注入失败，已复制到剪贴板。', 'warning');
+          showToast(i18n.t('toast.injectFailedCopy'), 'warning');
         }
       } else {
         // Auto-inject disabled: Only copy to clipboard
         await navigator.clipboard.writeText(instruction);
-        showToast(`已复制指令: ${mode.name}`, 'success');
+        showToast(i18n.t('toast.instructionCopied', { name: mode.name }), 'success');
       }
 
     } catch (error) {
       DebugLogger.error('Failed to apply mode', error);
-      showToast('应用模式时发生错误。', 'error');
+      showToast(i18n.t('toast.applyError'), 'error');
     } finally {
       setProcessingModeId(null);
     }
   };
 
-  const categories: { id: ModeCategory | 'all'; label: string }[] = [
-    { id: 'all', label: '全部' },
-    { id: 'L1_Micro', label: '极速(L1)' },
-    { id: 'L2_Combo', label: '剧本(L2)' },
-    { id: 'L3_Deep', label: '百科(L3)' },
+  const categories: { id: ModeCategory | 'all' | 'custom'; labelKey: string }[] = [
+    { id: 'all', labelKey: 'modes.tabAll' },
+    { id: 'L1_Micro', labelKey: 'modes.tabMicro' },
+    { id: 'L2_Combo', labelKey: 'modes.tabCombo' },
+    { id: 'L3_Deep', labelKey: 'modes.tabDeep' },
+    { id: 'custom', labelKey: 'modes.tabCustom' },
   ];
+
+  const handleOpenSettings = () => {
+    if (chrome.runtime && chrome.runtime.openOptionsPage) {
+      chrome.runtime.openOptionsPage();
+    } else {
+      window.open('options.html', '_blank');
+    }
+  };
 
   return (
     <div className="flex flex-col space-y-4 p-page">
@@ -109,7 +119,7 @@ export function ModeList() {
         <div className="relative">
           <Search className="absolute left-2.5 top-2.5 h-4 w-4 text-text-hint" />
           <Input
-            placeholder="搜索模式..."
+            placeholder={i18n.t('modes.search_placeholder')}
             className="pl-9 h-9 bg-bg-panel border-transparent focus:bg-bg-page focus:border-brand-primary/50 transition-all"
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
@@ -122,17 +132,17 @@ export function ModeList() {
         <Tabs 
           defaultValue="all"
           value={selectedCategory} 
-          onValueChange={(val) => setCategory(val as ModeCategory | 'all')}
+          onValueChange={(val) => setCategory(val as ModeCategory | 'all' | 'custom')}
           className="w-full"
         >
-          <TabsList className="w-full grid grid-cols-4 bg-bg-panel p-1 rounded-lg">
+          <TabsList className="w-full grid grid-cols-5 bg-bg-panel p-1 rounded-lg">
             {categories.map((cat) => (
               <TabsTrigger
                 key={cat.id}
                 value={cat.id}
-                className="text-xs px-1"
+                className="text-xs px-0.5"
               >
-                {cat.label}
+                {i18n.t(cat.labelKey)}
               </TabsTrigger>
             ))}
           </TabsList>
@@ -141,6 +151,17 @@ export function ModeList() {
 
       {/* Mode Grid */}
       <div className="grid grid-cols-1 gap-3 pb-4">
+        {selectedCategory === 'custom' && filteredModes.length > 0 && (
+          <div className="flex justify-end px-1">
+             <button 
+                onClick={handleOpenSettings}
+                className="text-xs text-brand-primary hover:underline flex items-center gap-1"
+              >
+                {i18n.t('modes.manageModes')}
+              </button>
+          </div>
+        )}
+
         {filteredModes.length > 0 ? (
           filteredModes.map((mode) => (
             <ModeItem 
@@ -155,8 +176,20 @@ export function ModeList() {
             <div className="rounded-full bg-bg-panel p-3 mb-2">
               <Search className="h-6 w-6 text-text-hint" />
             </div>
-            <p className="text-sm font-medium text-text-secondary">未找到相关模式</p>
-            <p className="text-xs text-text-hint mt-1">请尝试其他关键词或分类</p>
+            <p className="text-sm font-medium text-text-secondary">{i18n.t('modes.noResults')}</p>
+            {selectedCategory === 'custom' ? (
+              <div className="mt-3">
+                 <p className="text-xs text-text-hint mb-2">{i18n.t('modes.noCustomModes')}</p>
+                 <button 
+                  onClick={handleOpenSettings}
+                  className="px-4 py-2 bg-brand-primary text-white text-xs rounded-md hover:bg-brand-hover transition-colors"
+                 >
+                   {i18n.t('modes.addFirstMode')}
+                 </button>
+              </div>
+            ) : (
+              <p className="text-xs text-text-hint mt-1">{i18n.t('modes.tryOtherKeywords')}</p>
+            )}
           </div>
         )}
       </div>

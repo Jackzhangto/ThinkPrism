@@ -2,6 +2,7 @@ import * as React from 'react';
 import { Settings, Moon, Sun, Monitor } from 'lucide-react';
 import { useTheme } from '../../hooks/useTheme';
 import { Button } from '../ui/button';
+import { i18n } from '../../core/i18n';
 
 /**
  * 弹出窗口顶部栏组件
@@ -47,7 +48,7 @@ export function PopupHeader() {
           variant="ghost"
           size="icon"
           onClick={toggleTheme}
-          title={`主题: ${theme === 'system' ? '跟随系统' : theme === 'light' ? '浅色' : '深色'}`}
+          title={`${i18n.t('ui.theme')}: ${theme === 'system' ? i18n.t('ui.themeSystem') : theme === 'light' ? i18n.t('ui.themeLight') : i18n.t('ui.themeDark')}`}
         >
           {renderThemeIcon()}
         </Button>
@@ -59,7 +60,7 @@ export function PopupHeader() {
               chrome.runtime.openOptionsPage();
             }
           }}
-          title="设置"
+          title={i18n.t('ui.settings')}
         >
           <Settings className="h-4 w-4" />
         </Button>

@@ -3,6 +3,7 @@ import { X, Layers } from 'lucide-react';
 import { useModeStore } from '../../store/modeStore';
 import { useUIStore } from '../../store/uiStore';
 import { Button } from '../ui/button';
+import { i18n } from '../../core/i18n';
 
 /**
  * 持久化状态栏
@@ -21,7 +22,7 @@ export function PersistentStatusBar() {
 
   const handleDeactivate = () => {
     setPersistentMode(null);
-    showToast('持久模式已停用', 'info');
+    showToast(i18n.t('persistent.deactivated'), 'info');
   };
 
   return (
@@ -29,7 +30,7 @@ export function PersistentStatusBar() {
       <div className="flex items-center gap-2">
         <Layers className="h-4 w-4" />
         <span className="font-medium">
-          持久模式: <span className="font-bold">{persistentMode.name}</span>
+          {i18n.t('persistent.label')}: <span className="font-bold">{persistentMode.name}</span>
         </span>
       </div>
       <Button
@@ -37,7 +38,7 @@ export function PersistentStatusBar() {
         size="icon"
         className="h-6 w-6 text-brand-primary hover:bg-brand-primary/20 hover:text-brand-primary"
         onClick={handleDeactivate}
-        title="停用持久模式"
+        title={i18n.t('persistent.deactivate')}
       >
         <X className="h-3 w-3" />
       </Button>

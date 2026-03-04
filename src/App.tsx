@@ -5,6 +5,9 @@ import { SceneRecommender } from './components/business/SceneRecommender';
 import { ModeList } from './components/business/ModeList';
 import { Toast } from './components/ui/toast';
 import { useUIStore } from './store/uiStore';
+import { useModeStore } from './store/modeStore';
+import { usePreferences } from './hooks/usePreferences';
+import { i18n } from './core/i18n';
 
 /**
  * 应用根组件 (Popup)
@@ -12,6 +15,16 @@ import { useUIStore } from './store/uiStore';
  */
 function App() {
   const { message, type, visible, duration, hideToast } = useUIStore();
+  const initialize = useModeStore(state => state.initialize);
+  const { preferences } = usePreferences();
+
+  React.useEffect(() => {
+    initialize();
+  }, [initialize]);
+
+  React.useEffect(() => {
+    i18n.setLocale(preferences.language);
+  }, [preferences.language]);
 
   return (
     <div className="w-[360px] h-[600px] bg-bg-page text-text-primary flex flex-col font-sans antialiased transition-colors duration-200 overflow-hidden relative">
@@ -28,7 +41,7 @@ function App() {
       </main>
       
       <footer className="border-t border-border-light bg-bg-panel px-page py-2 text-center text-[10px] text-text-hint">
-        ThinkPrism v1.0.0 • 按 <kbd className="font-sans">Alt+P</kbd> 唤醒
+        {i18n.t('app.footer')}
       </footer>
 
       <Toast 

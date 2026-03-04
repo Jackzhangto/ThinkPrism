@@ -1,4 +1,4 @@
-import { StorageSchema, UserPreferences, Mode } from './types';
+import { StorageSchema, UserPreferences, Mode, Scenario } from './types';
 import { DebugLogger } from './DebugLogger';
 
 const DEFAULT_PREFERENCES: UserPreferences = {
@@ -10,6 +10,7 @@ const DEFAULT_PREFERENCES: UserPreferences = {
 const DEFAULT_STORAGE: StorageSchema = {
   preferences: DEFAULT_PREFERENCES,
   customModes: [],
+  customScenarios: [],
   history: []
 };
 
@@ -23,6 +24,7 @@ export class StorageService {
    * 获取所有存储数据。
    * 如果在非扩展环境下，将回退到 LocalStorage。
    * 
+   * @param key Optional specific key to retrieve
    * @returns {Promise<StorageSchema>} 返回完整的存储数据对象
    */
   public static async get(): Promise<StorageSchema> {
@@ -38,6 +40,7 @@ export class StorageService {
         resolve({
           preferences: { ...DEFAULT_PREFERENCES, ...data.preferences },
           customModes: data.customModes || [],
+          customScenarios: data.customScenarios || [],
           history: data.history || []
         });
       });
@@ -103,6 +106,45 @@ export class StorageService {
     await this.set({ history: newHistory });
   }
 
+  /**
+   * 添加自定义场景。
+   * 
+   * @param {Scenario} scenario 要添加的场景对象
+   * @returns {Promise<void>} Promise
+   */
+  public static async addCustomScenario(scenario: Scenario): Promise<void> {
+    const current = await this.get();
+    await this.set({
+      customScenarios: [...current.customScenarios, { ...scenario, isCustom: true }]
+    });
+  }
+
+  /**
+   * 删除自定义场景。
+   * 
+   * @param {string} scenarioId 要删除的场景 ID
+   * @returns {Promise<void>} Promise
+   */
+  public static async removeCustomScenario(scenarioId: string): Promise<void> {
+    const current = await this.get();
+    await this.set({
+      customScenarios: current.customScenarios.filter(s => s.id !== scenarioId)
+    });
+  }
+
+  /**
+   * 删除自定义模式。
+   * 
+   * @param {string} modeId 要删除的模式 ID
+   * @returns {Promise<void>} Promise
+   */
+  public static async removeCustomMode(modeId: string): Promise<void> {
+    const current = await this.get();
+    await this.set({
+      customModes: current.customModes.filter(m => m.id !== modeId)
+    });
+  }
+
   // --- LocalStorage Fallback for Development ---
 
   private static STORAGE_KEY = 'thinkprism_dev_storage';
@@ -120,6 +162,7 @@ export class StorageService {
       return {
         preferences: { ...DEFAULT_PREFERENCES, ...parsed.preferences },
         customModes: parsed.customModes || [],
+        customScenarios: parsed.customScenarios || [],
         history: parsed.history || []
       };
     } catch (e) {

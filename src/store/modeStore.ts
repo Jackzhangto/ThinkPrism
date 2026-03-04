@@ -1,31 +1,35 @@
 import { create } from 'zustand';
-import { Mode, ModeCategory } from '../core/types';
+import { Mode, ModeCategory, Scenario } from '../core/types';
 import defaultModesData from '../core/modes.json';
+import { StorageService } from '../core/StorageService';
 
 // Ensure JSON data matches Mode interface roughly (casting for now as JSON import is untyped by default without config)
 const defaultModes = defaultModesData as unknown as Mode[];
 
 interface ModeState {
   modes: Mode[];
+  customScenarios: Scenario[];
   searchQuery: string;
-  selectedCategory: ModeCategory | 'all';
+  selectedCategory: ModeCategory | 'all' | 'custom';
   filteredModes: Mode[];
   persistentModeId: string | null;
   activeScenario: string | null;
   
   // Actions
   setModes: (modes: Mode[]) => void;
+  setCustomScenarios: (scenarios: Scenario[]) => void;
   setSearchQuery: (query: string) => void;
-  setCategory: (category: ModeCategory | 'all') => void;
+  setCategory: (category: ModeCategory | 'all' | 'custom') => void;
   setActiveScenario: (scenarioLabel: string | null) => void;
   setPersistentMode: (id: string | null) => void;
   reset: () => void;
+  initialize: () => Promise<void>;
 }
 
 const filterModesHelper = (
   modes: Mode[], 
   searchQuery: string, 
-  category: ModeCategory | 'all',
+  category: ModeCategory | 'all' | 'custom',
   activeScenario: string | null
 ) => {
   // If a scenario is active, it overrides other filters
@@ -35,7 +39,15 @@ const filterModesHelper = (
 
   const lowerQuery = searchQuery.toLowerCase();
   return modes.filter(mode => {
-    const matchesCategory = category === 'all' || mode.category === category;
+    let matchesCategory = false;
+    if (category === 'all') {
+      matchesCategory = true;
+    } else if (category === 'custom') {
+      matchesCategory = !!mode.isCustom;
+    } else {
+      matchesCategory = mode.category === category;
+    }
+
     const matchesSearch = 
       mode.name.toLowerCase().includes(lowerQuery) || 
       mode.description.toLowerCase().includes(lowerQuery) ||
@@ -47,6 +59,7 @@ const filterModesHelper = (
 
 export const useModeStore = create<ModeState>((set, get) => ({
   modes: defaultModes,
+  customScenarios: [],
   searchQuery: '',
   selectedCategory: 'all',
   filteredModes: defaultModes,
@@ -59,6 +72,29 @@ export const useModeStore = create<ModeState>((set, get) => ({
       modes, 
       filteredModes: filterModesHelper(modes, searchQuery, selectedCategory, activeScenario) 
     });
+  },
+
+  setCustomScenarios: (scenarios) => {
+    set({ customScenarios: scenarios });
+  },
+
+  initialize: async () => {
+    try {
+      const data = await StorageService.get();
+      const customModes = data.customModes || [];
+      const customScenarios = data.customScenarios || [];
+      
+      const { searchQuery, selectedCategory, activeScenario } = get();
+      const allModes = [...defaultModes, ...customModes];
+      
+      set({
+        modes: allModes,
+        customScenarios,
+        filteredModes: filterModesHelper(allModes, searchQuery, selectedCategory, activeScenario)
+      });
+    } catch (e) {
+      console.error('Failed to initialize store', e);
+    }
   },
 
   setSearchQuery: (query) => {

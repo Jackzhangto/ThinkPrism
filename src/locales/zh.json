@@ -1,7 +1,18 @@
 {
   "app": {
     "name": "ThinkPrism",
-    "description": "您的 AI 提示工程助手"
+    "description": "您的 AI 提示工程助手",
+    "footer": "ThinkPrism v1.0.0 • 按 Alt+P 唤醒"
+  },
+  "scenes": {
+    "recommend": "推荐场景",
+    "manageScenarios": "管理自定义场景",
+    "add": "添加",
+    "all": "全部",
+    "product": "产品",
+    "code": "代码",
+    "decision": "决策",
+    "learning": "学习"
   },
   "modes": {
     "categories": {
@@ -9,6 +20,21 @@
       "L2_Combo": "剧本(L2)",
       "L3_Deep": "百科(L3)"
     },
+    "tabAll": "全部",
+    "tabMicro": "极速",
+    "tabCombo": "剧本",
+    "tabDeep": "百科",
+    "tabCustom": "自定义",
+    "search_placeholder": "搜索模式...",
+    "manageModes": "管理自定义模式 »",
+    "noResults": "未找到相关模式",
+    "noCustomModes": "您还没有添加自定义模式",
+    "addFirstMode": "去添加第一个模式",
+    "tryOtherKeywords": "请尝试其他关键词或分类",
+    "unpin": "取消固定",
+    "pinAsPersistent": "固定为持久模式",
+    "running": "处理中...",
+    "runMode": "运行模式",
     "summarize": {
       "name": "总结",
       "description": "生成所选文本的简明摘要。"
@@ -18,9 +44,79 @@
       "description": "用更多细节扩展所选文本。"
     }
   },
+  "persistent": {
+    "label": "持久模式",
+    "deactivated": "持久模式已停用",
+    "deactivate": "停用持久模式"
+  },
+  "toast": {
+    "modeNoPrompt": "该模式未定义 Prompt",
+    "modeApplied": "已应用模式: {name}",
+    "injectFailedCopy": "注入失败，已复制到剪贴板。",
+    "instructionCopied": "已复制指令: {name}",
+    "applyError": "应用模式时发生错误。",
+    "unpinned": "已取消固定 {name}",
+    "pinned": "已将 {name} 固定为持久模式"
+  },
   "ui": {
-    "search_placeholder": "搜索模式...",
     "settings": "设置",
-    "feedback": "反馈"
+    "feedback": "反馈",
+    "theme": "主题",
+    "themeSystem": "跟随系统",
+    "themeLight": "浅色",
+    "themeDark": "深色"
+  },
+  "options": {
+    "title": "ThinkPrism 设置",
+    "subtitle": "管理您的偏好设置、自定义场景和模式。",
+    "tabModes": "自定义模式",
+    "tabScenarios": "自定义场景",
+    "tabGeneral": "常规设置",
+    "tabAbout": "关于",
+    "loading": "正在加载设置...",
+    "confirmDeleteScenario": "确定要删除这个场景吗？",
+    "confirmDeleteMode": "确定要删除这个模式吗？",
+    "customModeDefaultDesc": "自定义模式",
+    "addMode": "添加模式",
+    "addModeTitle": "添加新模式",
+    "addModeDescription": "创建一个新的 Prompt 模板，并关联到特定场景。",
+    "modeName": "模式名称",
+    "modeNamePlaceholder": "例如：代码审查专家",
+    "modeDesc": "描述",
+    "modeDescPlaceholder": "简短描述该模式的用途",
+    "modePrompt": "提示词 (Prompt)",
+    "modePromptPlaceholder": "在此输入您的提示词模板...",
+    "modeScenarios": "关联场景 (可选)",
+    "addScenario": "添加场景",
+    "addScenarioTitle": "添加新场景",
+    "addScenarioDescription": "创建自定义场景分类，用于组织您的模式。",
+    "scenarioName": "场景名称",
+    "scenarioNamePlaceholder": "例如：写作助手",
+    "scenarioIcon": "图标 (Emoji)",
+    "noCustomModesYet": "暂无自定义模式。在上方添加您的第一个模式吧！",
+    "systemDefault": "系统默认",
+    "custom": "自定义",
+    "preferencesTitle": "偏好设置",
+    "preferencesDescription": "配置扩展行为。",
+    "autoInject": "自动注入内容脚本",
+    "autoInjectDesc": "在页面加载时自动注入内容脚本（如果权限允许）。",
+    "themeLabel": "主题",
+    "themeDesc": "选择浅色、深色或跟随系统主题。",
+    "light": "浅色",
+    "dark": "深色",
+    "followSystem": "跟随系统",
+    "languageLabel": "语言",
+    "languageDesc": "界面和 Prompt 的首选语言。",
+    "languageEn": "English",
+    "languageZh": "中文",
+    "aboutTitle": "关于 ThinkPrism",
+    "aboutVersion": "版本 1.0.0",
+    "aboutDesc": "ThinkPrism 是一款 AI 驱动的浏览器扩展，旨在增强您的阅读和写作体验。",
+    "aboutBy": "由 Trae AI Pair Programmer 创建。",
+    "aboutFeatures": "核心功能包括：",
+    "aboutFeature1": "智能内容分析与生成",
+    "aboutFeature2": "多场景思维模式支持 (产品、代码、决策、学习)",
+    "aboutFeature3": "Lyra 专属交互模式",
+    "aboutFeature4": "自定义场景与模式管理"
   }
 }

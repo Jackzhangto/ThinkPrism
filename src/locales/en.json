@@ -1,7 +1,18 @@
 {
   "app": {
     "name": "ThinkPrism",
-    "description": "Your AI Prompt Engineering Assistant"
+    "description": "Your AI Prompt Engineering Assistant",
+    "footer": "ThinkPrism v1.0.0 • Press Alt+P to open"
+  },
+  "scenes": {
+    "recommend": "Recommended scenes",
+    "manageScenarios": "Manage custom scenarios",
+    "add": "Add",
+    "all": "All",
+    "product": "Product",
+    "code": "Code",
+    "decision": "Decision",
+    "learning": "Learning"
   },
   "modes": {
     "categories": {
@@ -9,6 +20,21 @@
       "L2_Combo": "Combo(L2)",
       "L3_Deep": "Deep(L3)"
     },
+    "tabAll": "All",
+    "tabMicro": "Micro",
+    "tabCombo": "Combo",
+    "tabDeep": "Deep",
+    "tabCustom": "Custom",
+    "search_placeholder": "Search modes...",
+    "manageModes": "Manage custom modes »",
+    "noResults": "No matching modes",
+    "noCustomModes": "You haven't added any custom modes yet",
+    "addFirstMode": "Add your first mode",
+    "tryOtherKeywords": "Try other keywords or categories",
+    "unpin": "Unpin",
+    "pinAsPersistent": "Pin as persistent mode",
+    "running": "Running...",
+    "runMode": "Run mode",
     "summarize": {
       "name": "Summarize",
       "description": "Generate a concise summary of the selected text."
@@ -18,9 +44,79 @@
       "description": "Expand the selected text with more details."
     }
   },
+  "persistent": {
+    "label": "Persistent",
+    "deactivated": "Persistent mode deactivated",
+    "deactivate": "Deactivate persistent mode"
+  },
+  "toast": {
+    "modeNoPrompt": "This mode has no prompt defined",
+    "modeApplied": "Mode applied: {name}",
+    "injectFailedCopy": "Injection failed, copied to clipboard.",
+    "instructionCopied": "Instruction copied: {name}",
+    "applyError": "Error applying mode.",
+    "unpinned": "Unpinned {name}",
+    "pinned": "Pinned {name} as persistent mode"
+  },
   "ui": {
-    "search_placeholder": "Search modes...",
     "settings": "Settings",
-    "feedback": "Feedback"
+    "feedback": "Feedback",
+    "theme": "Theme",
+    "themeSystem": "Follow system",
+    "themeLight": "Light",
+    "themeDark": "Dark"
+  },
+  "options": {
+    "title": "ThinkPrism Settings",
+    "subtitle": "Manage your preferences, custom scenarios and modes.",
+    "tabModes": "Custom modes",
+    "tabScenarios": "Custom scenarios",
+    "tabGeneral": "General",
+    "tabAbout": "About",
+    "loading": "Loading settings...",
+    "confirmDeleteScenario": "Delete this scenario?",
+    "confirmDeleteMode": "Delete this mode?",
+    "customModeDefaultDesc": "Custom mode",
+    "addMode": "Add mode",
+    "addModeTitle": "Add new mode",
+    "addModeDescription": "Create a new prompt template and link it to scenarios.",
+    "modeName": "Mode name",
+    "modeNamePlaceholder": "e.g. Code review expert",
+    "modeDesc": "Description",
+    "modeDescPlaceholder": "Brief description of what this mode does",
+    "modePrompt": "Prompt",
+    "modePromptPlaceholder": "Enter your prompt template here...",
+    "modeScenarios": "Link to scenarios (optional)",
+    "addScenario": "Add scenario",
+    "addScenarioTitle": "Add new scenario",
+    "addScenarioDescription": "Create a custom scenario to organize your modes.",
+    "scenarioName": "Scenario name",
+    "scenarioNamePlaceholder": "e.g. Writing assistant",
+    "scenarioIcon": "Icon (Emoji)",
+    "noCustomModesYet": "No custom modes yet. Add your first one above!",
+    "systemDefault": "System default",
+    "custom": "Custom",
+    "preferencesTitle": "Preferences",
+    "preferencesDescription": "Configure extension behavior.",
+    "autoInject": "Auto-inject content script",
+    "autoInjectDesc": "Inject content script on page load when permitted.",
+    "themeLabel": "Theme",
+    "themeDesc": "Choose light, dark, or follow system.",
+    "light": "Light",
+    "dark": "Dark",
+    "followSystem": "Follow system",
+    "languageLabel": "Language",
+    "languageDesc": "Preferred language for UI and prompts.",
+    "languageEn": "English",
+    "languageZh": "中文",
+    "aboutTitle": "About ThinkPrism",
+    "aboutVersion": "Version 1.0.0",
+    "aboutDesc": "ThinkPrism is an AI-powered browser extension to enhance your reading and writing.",
+    "aboutBy": "Created by Trae AI Pair Programmer.",
+    "aboutFeatures": "Features:",
+    "aboutFeature1": "Smart content analysis and generation",
+    "aboutFeature2": "Multi-scenario thinking modes (product, code, decision, learning)",
+    "aboutFeature3": "Lyra-style interaction modes",
+    "aboutFeature4": "Custom scenarios and mode management"
   }
 }

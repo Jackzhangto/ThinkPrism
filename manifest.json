@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "ThinkPrism",
-  "version": "1.0.3",
+  "version": "1.0.5",
   "description": "激发 AI 深度思考的棱镜",
   "action": {
     "default_popup": "index.html"

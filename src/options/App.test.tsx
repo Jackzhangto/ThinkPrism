@@ -48,13 +48,14 @@ describe('Options Page App', () => {
       preferences: mockPreferences,
       customModes: mockCustomModes,
       history: [],
+      customScenarios: [],
     });
   });
 
   it('renders correctly and loads preferences', async () => {
     render(<App />);
 
-    // Wait for loading to finish and header to appear
+    // Wait for loading to finish and header to appear (i18n default is zh before preferences apply)
     await waitFor(() => {
       expect(screen.getByText('ThinkPrism 设置')).toBeDefined();
     });
@@ -63,7 +64,7 @@ describe('Options Page App', () => {
     expect(StorageService.get).toHaveBeenCalled();
 
     // Check tabs
-    expect(screen.getByText('常规')).toBeDefined();
+    expect(screen.getByText('常规设置')).toBeDefined();
     expect(screen.getByText('自定义模式')).toBeDefined();
     expect(screen.getByText('关于')).toBeDefined();
   });
@@ -75,13 +76,15 @@ describe('Options Page App', () => {
       expect(StorageService.get).toHaveBeenCalled();
     });
 
+    // Switch to General Settings tab
+    const generalTab = screen.getByText('常规设置');
+    fireEvent.click(generalTab);
+
     // Find Auto Injection switch
-    // The switch might not have a label associated via htmlFor, so we might need to find by role
-    const switchElement = screen.getByRole('switch');
+    const switchElement = await screen.findByRole('switch');
     expect(switchElement).toBeDefined();
     
     // Initial state should be checked (true)
-    // Note: Radix UI switch uses data-state
     expect(switchElement.getAttribute('data-state')).toBe('checked');
 
     // Click to toggle
@@ -100,11 +103,7 @@ describe('Options Page App', () => {
       expect(StorageService.get).toHaveBeenCalled();
     });
 
-    // Switch to Custom Modes tab
-    const customModesTab = screen.getByText('自定义模式');
-    fireEvent.click(customModesTab);
-
-    // Should see the custom mode
+    // Custom Modes tab is default, so we should see the custom mode
     await waitFor(() => {
       expect(screen.getByText('My Custom Mode')).toBeDefined();
     });

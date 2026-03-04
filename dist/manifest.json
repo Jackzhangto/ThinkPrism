@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "ThinkPrism",
-  "version": "1.0.3",
+  "version": "1.0.5",
   "description": "激发 AI 深度思考的棱镜",
   "action": {
     "default_popup": "index.html"
@@ -26,7 +26,7 @@
   "content_scripts": [
     {
       "js": [
-        "assets/index.ts-loader-CGKJFb1g.js"
+        "assets/index.ts-loader-CxqsK1Z_.js"
       ],
       "matches": [
         "<all_urls>"
@@ -45,7 +45,7 @@
       ],
       "resources": [
         "assets/DebugLogger-BW-ZIhyA.js",
-        "assets/index.ts-BsZSYwfW.js"
+        "assets/index.ts-DiWKDv-O.js"
       ],
       "use_dynamic_url": false
     }

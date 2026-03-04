@@ -7,6 +7,7 @@ import { Button } from '../ui/button';
 import { cn } from '../../lib/utils';
 import { useModeStore } from '../../store/modeStore';
 import { useUIStore } from '../../store/uiStore';
+import { i18n } from '../../core/i18n';
 
 interface ModeItemProps {
   mode: Mode;
@@ -20,10 +21,10 @@ const CategoryColors: Record<ModeCategory, string> = {
   'L3_Deep': 'bg-amber-100 text-amber-800 dark:bg-amber-900/30 dark:text-amber-300',
 };
 
-const CategoryLabels: Record<ModeCategory, string> = {
-  'L1_Micro': '极速',
-  'L2_Combo': '剧本',
-  'L3_Deep': '百科',
+const CategoryLabelKeys: Record<ModeCategory, string> = {
+  'L1_Micro': 'modes.tabMicro',
+  'L2_Combo': 'modes.tabCombo',
+  'L3_Deep': 'modes.tabDeep',
 };
 
 /**
@@ -44,10 +45,10 @@ export function ModeItem({ mode, onSelect, isLoading = false }: ModeItemProps) {
 
     if (isPersistent) {
       setPersistentMode(null);
-      showToast(`已取消固定 ${mode.name}`, 'info');
+      showToast(i18n.t('toast.unpinned', { name: mode.name }), 'info');
     } else {
       setPersistentMode(mode.id);
-      showToast(`已将 ${mode.name} 固定为持久模式`, 'success');
+      showToast(i18n.t('toast.pinned', { name: mode.name }), 'success');
     }
   };
 
@@ -75,7 +76,7 @@ export function ModeItem({ mode, onSelect, isLoading = false }: ModeItemProps) {
               variant="secondary" 
               className={cn("text-[10px] px-1.5 py-0 h-5 whitespace-nowrap", CategoryColors[mode.category])}
             >
-              {CategoryLabels[mode.category]}
+              {i18n.t(CategoryLabelKeys[mode.category])}
             </Badge>
           </div>
         </div>
@@ -97,7 +98,7 @@ export function ModeItem({ mode, onSelect, isLoading = false }: ModeItemProps) {
                   isPersistent ? "text-brand-primary opacity-100" : "text-text-secondary hover:text-brand-primary"
                 )}
                 onClick={handlePin}
-                title={isPersistent ? "取消固定" : "固定为持久模式"}
+                title={isPersistent ? i18n.t('modes.unpin') : i18n.t('modes.pinAsPersistent')}
               >
                 <Pin className={cn("h-3.5 w-3.5", isPersistent && "fill-current")} />
               </Button>
@@ -107,7 +108,7 @@ export function ModeItem({ mode, onSelect, isLoading = false }: ModeItemProps) {
               variant="default"
               size="icon"
               className={cn("h-6 w-6 bg-brand-primary hover:bg-brand-hover", isLoading && "cursor-wait")}
-              title={isLoading ? "处理中..." : "运行模式"}
+              title={isLoading ? i18n.t('modes.running') : i18n.t('modes.runMode')}
               disabled={isLoading}
             >
               {isLoading ? (

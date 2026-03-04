@@ -52,9 +52,15 @@ export class InjectionService {
         const currentValue = activeElement.value;
         const newValue = currentValue.substring(0, start) + text + currentValue.substring(end);
         
-        // 尝试使用原生 Setter 以触发 React 的状态更新
+        // 尝试使用原生 Setter 以触发 React 的状态更新 (兼容 React 15/16+)
+        // 我们需要直接从 HTMLInputElement/HTMLTextAreaElement 的原型上获取 setter，
+        // 而不是从实例的原型上获取，因为实例的原型可能被修改或封装。
+        const proto = activeElement instanceof HTMLInputElement 
+          ? window.HTMLInputElement.prototype 
+          : window.HTMLTextAreaElement.prototype;
+
         const nativeInputValueSetter = Object.getOwnPropertyDescriptor(
-          Object.getPrototypeOf(activeElement),
+          proto,
           'value'
         )?.set;
 
@@ -68,8 +74,11 @@ export class InjectionService {
         const newCursorPos = start + text.length;
         activeElement.setSelectionRange(newCursorPos, newCursorPos);
         
-        // 触发 input 事件以通知框架
+        // 触发 input 事件以通知框架 (React, Vue 等)
         activeElement.dispatchEvent(new Event('input', { bubbles: true }));
+        
+        // 额外触发 change 事件，以兼容部分旧框架或特定逻辑
+        activeElement.dispatchEvent(new Event('change', { bubbles: true }));
         
         // 确保元素重新获得焦点，防止输入法失效
         activeElement.focus();

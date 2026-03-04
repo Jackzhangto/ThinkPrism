@@ -1,4 +1,4 @@
-export type ModeCategory = 'L1_Micro' | 'L2_Combo' | 'L3_Deep';
+export type ModeCategory = 'L1_Micro' | 'L2_Combo' | 'L3_Deep' | string;
 
 export interface Mode {
   id: string;
@@ -11,6 +11,13 @@ export interface Mode {
   isCustom?: boolean;
 }
 
+export interface Scenario {
+  id: string;
+  label: string;
+  icon: string;
+  isCustom?: boolean;
+}
+
 export interface UserPreferences {
   theme: 'light' | 'dark' | 'system';
   language: 'en' | 'zh';
@@ -20,6 +27,7 @@ export interface UserPreferences {
 export interface StorageSchema {
   preferences: UserPreferences;
   customModes: Mode[];
+  customScenarios: Scenario[];
   history: string[]; // IDs of recently used modes
 }
 
