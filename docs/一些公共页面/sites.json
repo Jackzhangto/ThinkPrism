@@ -1,0 +1,16 @@
+[
+    {
+      "site": "chat.openai.com",
+      "matches": "*://://chat.openai.com*",
+      "selector": "textarea[id^=\"prompt-textarea\"]",
+      "note": "ChatGPT 官方站"
+    },
+    {
+      "site": "deepseek",
+      "matches": "*://://chat.deepseek.com*",
+      "selector": "textarea",
+      "note": "DeepSeek 网页版"
+    }
+  ]
+
+  

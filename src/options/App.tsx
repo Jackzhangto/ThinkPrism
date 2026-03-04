@@ -137,7 +137,7 @@ function App() {
 
   return (
     <div className="min-h-screen bg-bg-page p-8 text-text-primary">
-      <div className="mx-auto max-w-5xl space-y-8">
+      <div key={preferences.language} className="mx-auto max-w-5xl space-y-8">
         <div className="flex items-center justify-between">
           <div>
             <h1 className="text-3xl font-bold tracking-tight text-brand-primary">{i18n.t('options.title')}</h1>

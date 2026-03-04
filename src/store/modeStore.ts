@@ -1,12 +1,13 @@
 import { create } from 'zustand';
 import { Mode, ModeCategory, Scenario } from '../core/types';
-import defaultModesData from '../core/modes.json';
+import defaultModesDataZh from '../core/modes.json';
 import { StorageService } from '../core/StorageService';
 
-// Ensure JSON data matches Mode interface roughly (casting for now as JSON import is untyped by default without config)
-const defaultModes = defaultModesData as unknown as Mode[];
+const defaultModesZh = defaultModesDataZh as unknown as Mode[];
 
 interface ModeState {
+  /** 内置模式列表（随语言切换为 modes.json 或 modes.en.json） */
+  defaultModes: Mode[];
   modes: Mode[];
   customScenarios: Scenario[];
   searchQuery: string;
@@ -14,8 +15,7 @@ interface ModeState {
   filteredModes: Mode[];
   persistentModeId: string | null;
   activeScenario: string | null;
-  
-  // Actions
+
   setModes: (modes: Mode[]) => void;
   setCustomScenarios: (scenarios: Scenario[]) => void;
   setSearchQuery: (query: string) => void;
@@ -58,11 +58,12 @@ const filterModesHelper = (
 };
 
 export const useModeStore = create<ModeState>((set, get) => ({
-  modes: defaultModes,
+  defaultModes: defaultModesZh,
+  modes: defaultModesZh,
   customScenarios: [],
   searchQuery: '',
   selectedCategory: 'all',
-  filteredModes: defaultModes,
+  filteredModes: defaultModesZh,
   persistentModeId: null,
   activeScenario: null,
 
@@ -83,11 +84,18 @@ export const useModeStore = create<ModeState>((set, get) => ({
       const data = await StorageService.get();
       const customModes = data.customModes || [];
       const customScenarios = data.customScenarios || [];
-      
+      const language = data.preferences?.language === 'en' ? 'en' : 'zh';
+
+      const baseModes: Mode[] =
+        language === 'en'
+          ? ((await import('../core/modes.en.json')).default as unknown as Mode[])
+          : defaultModesZh;
+
       const { searchQuery, selectedCategory, activeScenario } = get();
-      const allModes = [...defaultModes, ...customModes];
-      
+      const allModes = [...baseModes, ...customModes];
+
       set({
+        defaultModes: baseModes,
         modes: allModes,
         customScenarios,
         filteredModes: filterModesHelper(allModes, searchQuery, selectedCategory, activeScenario)
@@ -130,6 +138,7 @@ export const useModeStore = create<ModeState>((set, get) => ({
   },
 
   reset: () => {
+    const { defaultModes } = get();
     set({
       modes: defaultModes,
       searchQuery: '',

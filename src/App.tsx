@@ -28,21 +28,23 @@ function App() {
 
   return (
     <div className="w-[360px] h-[600px] bg-bg-page text-text-primary flex flex-col font-sans antialiased transition-colors duration-200 overflow-hidden relative">
-      <PopupHeader />
-      <PersistentStatusBar />
-      
-      <main className="flex-1 overflow-y-auto scrollbar-thin scrollbar-thumb-bg-hover scrollbar-track-transparent hover:scrollbar-thumb-bg-active">
-        <div className="py-2">
-          <SceneRecommender />
-        </div>
-        <div className="px-1">
-          <ModeList />
-        </div>
-      </main>
-      
-      <footer className="border-t border-border-light bg-bg-panel px-page py-2 text-center text-[10px] text-text-hint">
-        {i18n.t('app.footer')}
-      </footer>
+      <div key={preferences.language} className="flex flex-col flex-1 overflow-hidden">
+        <PopupHeader />
+        <PersistentStatusBar />
+        
+        <main className="flex-1 overflow-y-auto scrollbar-thin scrollbar-thumb-bg-hover scrollbar-track-transparent hover:scrollbar-thumb-bg-active">
+          <div className="py-2">
+            <SceneRecommender />
+          </div>
+          <div className="px-1">
+            <ModeList />
+          </div>
+        </main>
+        
+        <footer className="border-t border-border-light bg-bg-panel px-page py-2 text-center text-[10px] text-text-hint">
+          {i18n.t('app.footer')}
+        </footer>
+      </div>
 
       <Toast 
         message={message} 

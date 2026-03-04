@@ -52,10 +52,15 @@ export class ContentBridge {
   }
 
   /**
-   * 替换当前选中的文本
+   * 替换当前选中的文本（或整段替换输入框内容）。
+   * @param replaceEntire 为 true 时用 text 整段替换输入框内容，确保提交时页面发送完整内容
    */
-  public static async replaceSelection(text: string): Promise<boolean> {
-    const response = await this.sendMessage({ action: 'REPLACE_SELECTION', text });
+  public static async replaceSelection(text: string, options?: { replaceEntire?: boolean }): Promise<boolean> {
+    const response = await this.sendMessage({
+      action: 'REPLACE_SELECTION',
+      text,
+      replaceEntire: options?.replaceEntire
+    });
     if (response.error) {
       throw new Error(response.error);
     }

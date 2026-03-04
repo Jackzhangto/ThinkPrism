@@ -9,51 +9,60 @@
     "file": "assets/DebugLogger-BW-ZIhyA.js",
     "name": "DebugLogger"
   },
-  "_index-BlOrgq-O.css": {
-    "file": "assets/index-BlOrgq-O.css",
-    "src": "_index-BlOrgq-O.css"
+  "_index-C0cqfz5V.css": {
+    "file": "assets/index-C0cqfz5V.css",
+    "src": "_index-C0cqfz5V.css"
   },
-  "_index-SM7OxHSn.js": {
-    "file": "assets/index-SM7OxHSn.js",
+  "_index-CC-CR4Ib.js": {
+    "file": "assets/index-CC-CR4Ib.js",
     "name": "index",
     "imports": [
       "_DebugLogger-BW-ZIhyA.js"
     ],
     "css": [
-      "assets/index-BlOrgq-O.css"
+      "assets/index-C0cqfz5V.css"
     ]
   },
-  "_index.ts-loader-CxqsK1Z_.js": {
-    "file": "assets/index.ts-loader-CxqsK1Z_.js",
-    "src": "_index.ts-loader-CxqsK1Z_.js"
+  "_index.ts-loader-DSxVx-jB.js": {
+    "file": "assets/index.ts-loader-DSxVx-jB.js",
+    "src": "_index.ts-loader-DSxVx-jB.js"
   },
   "index.html": {
-    "file": "assets/index.html-DdUn-uPd.js",
+    "file": "assets/index.html-A-qzxwn7.js",
     "name": "index.html",
     "src": "index.html",
     "isEntry": true,
     "imports": [
-      "_index-SM7OxHSn.js",
+      "_index-CC-CR4Ib.js",
       "_DebugLogger-BW-ZIhyA.js"
+    ],
+    "dynamicImports": [
+      "src/core/modes.en.json"
     ]
   },
   "options.html": {
-    "file": "assets/options.html-CqZ7QrBG.js",
+    "file": "assets/options.html-VTHEhdn6.js",
     "name": "options.html",
     "src": "options.html",
     "isEntry": true,
     "imports": [
-      "_index-SM7OxHSn.js",
+      "_index-CC-CR4Ib.js",
       "_DebugLogger-BW-ZIhyA.js"
     ]
   },
   "src/content/index.ts": {
-    "file": "assets/index.ts-DiWKDv-O.js",
+    "file": "assets/index.ts-C50epN61.js",
     "name": "index.ts",
     "src": "src/content/index.ts",
     "isEntry": true,
     "imports": [
       "_DebugLogger-BW-ZIhyA.js"
     ]
+  },
+  "src/core/modes.en.json": {
+    "file": "assets/modes.en-nEbz-woE.js",
+    "name": "modes.en",
+    "src": "src/core/modes.en.json",
+    "isDynamicEntry": true
   }
 }

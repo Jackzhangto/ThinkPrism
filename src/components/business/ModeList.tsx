@@ -57,10 +57,15 @@ export function ModeList() {
         return;
       }
 
-      const instruction = InstructionBuilder.build(promptTemplate, {
+      let instruction = InstructionBuilder.build(promptTemplate, {
         selection: selection || '',
         text: selection || '' // Support both {{selection}} and {{text}}
       });
+      // 若模板未包含占位符，将用户选中/输入内容追加到指令末尾，保证注入和提交的是一整段
+      const hasPlaceholder = /\{\{(?:selection|text)\}\}/.test(promptTemplate);
+      if (!hasPlaceholder && (selection || '').trim()) {
+        instruction = instruction.trimEnd() + '\n\n' + selection.trim();
+      }
 
       // 3. Apply mode based on user preference
       if (preferences.autoInject) {
@@ -70,7 +75,7 @@ export function ModeList() {
 
         let success = false;
         try {
-          success = await ContentBridge.replaceSelection(instruction);
+          success = await ContentBridge.replaceSelection(instruction, { replaceEntire: true });
         } catch (e) {
           DebugLogger.warn('Auto-injection failed', e);
           success = false;

@@ -12,7 +12,9 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
   }
 
   if (request.action === 'REPLACE_SELECTION') {
-    const success = InjectionService.replaceSelection(request.text);
+    const success = InjectionService.replaceSelection(request.text ?? '', {
+      replaceEntire: request.replaceEntire === true
+    });
     sendResponse({ success });
     return true;
   }

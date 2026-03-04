@@ -36,6 +36,8 @@ export type MessageAction = 'GET_SELECTION' | 'REPLACE_SELECTION';
 export interface MessagePayload {
   action: MessageAction;
   text?: string;
+  /** 为 true 时用 text 整段替换输入框内容，便于提交时与页面状态一致 */
+  replaceEntire?: boolean;
 }
 
 export interface MessageResponse {

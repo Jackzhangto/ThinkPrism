@@ -4,7 +4,7 @@ import { cva } from 'class-variance-authority';
 import { X } from 'lucide-react';
 
 const toastVariants = cva(
-  "fixed z-50 flex items-center justify-between w-full max-w-sm rounded-lg p-4 shadow-lg ring-1 ring-black/5 transition-all",
+  "fixed z-50 flex flex-row flex-nowrap items-center justify-between gap-3 w-full max-w-sm rounded-lg p-4 shadow-lg ring-1 ring-black/5 transition-all",
   {
     variants: {
       type: {
@@ -49,13 +49,13 @@ function Toast({ message, type = 'info', visible, onClose, duration = 3000, clas
 
   return (
     <div
-      className={cn(toastVariants({ type }), "bottom-4 right-4 animate-in slide-in-from-bottom-5 fade-in", className)}
+      className={cn(toastVariants({ type }), "left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 mx-4 w-[calc(100%-2rem)] min-w-[240px] animate-in fade-in", className)}
       {...props}
     >
-      <div className="flex-1 text-sm font-medium">{message}</div>
+      <div className="min-w-0 flex-1 text-sm font-medium whitespace-normal break-words">{message}</div>
       <button
         onClick={onClose}
-        className="ml-4 inline-flex h-6 w-6 shrink-0 items-center justify-center rounded-md text-current opacity-80 hover:opacity-100 focus:outline-none focus:ring-2 focus:ring-offset-2"
+        className="shrink-0 inline-flex h-6 w-6 items-center justify-center rounded-md text-current opacity-80 hover:opacity-100 focus:outline-none focus:ring-2 focus:ring-offset-2"
       >
         <X className="h-4 w-4" />
       </button>
